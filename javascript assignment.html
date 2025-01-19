@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        *::-webkit-scrollbar{
+            display: none;
+        }
+      .container {
+        background-color: pink;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .border{
+        background-color: whitesmoke;
+        width: 30%;
+        height: 60%;
+        border-radius: 3%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .box{
+        width: 95%;
+        height: 95%;
+        background-color: palevioletred;
+        border-radius: 3%;
+        display: flex;
+        justify-content:start;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      h1{
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 50px;
+      }
+
+      .tag{
+        width: 100%;
+        display: grid;
+        grid-template-columns:3fr 1fr;
+        grid-template-areas: "tag button";
+        margin-left: 18%;
+      }
+
+      input{
+        width: 85%;
+        height: 85%;
+        border: none;
+        border-radius: 15px;
+        align-self: center;
+        font-size: 25px;
+      }
+
+      .button{
+        width: 35%;
+        font-size: 50px;
+        background-color: springgreen;
+        border: none;
+        border-radius: 99%;
+      }
+
+      ul{
+        list-style: none;
+        padding: 0;
+        width: 80%;
+        height: 100%;
+        overflow-y: scroll;
+      }
+
+      #datalist div{
+        background-color: white;
+        margin: 5px 0;
+        padding: 10px;
+        padding-right: 80px;
+        border-radius: 10px;
+        font-size: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        text-wrap: wrap;
+      }
+
+      .delete-button {
+        background-color: rgba(222, 13, 13, 0.916);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        position: absolute;
+        right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+        <div class="border">
+            <div class="box">
+                    <h1>TO-DO LIST</h1>
+                    <div class="tag">
+                        <input type="text" id="datainput" placeholder="Enter The Data ">
+                        <button class="button" id="addbutton">+</button>
+                    </div>
+                    <ul id="datalist"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+      const addbutton = document.getElementById('addbutton');
+      const datainput = document.getElementById('datainput');
+      const datalist = document.getElementById('datalist');
+
+      function addTask() {
+        const datavalue = datainput.value.trim();
+
+        if (datavalue === '') {
+          alert('Please enter a task!');
+          return;
+        }
+        const list = document.createElement('div');
+        const data = document.createElement('span');
+        data.textContent = datavalue;
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.classList.add('delete-button');
+        deleteButton.addEventListener('click', () => {
+          datalist.removeChild(list);
+        });
+
+        list.appendChild(data);
+        list.appendChild(deleteButton);
+        datalist.appendChild(list);
+        datainput.value = '';
+      }
+
+      addbutton.addEventListener('click', addTask);
+      datainput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          addTask();
+        }
+      });
+      </script>
+  </body>
+</html>
+
+
+
